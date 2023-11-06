@@ -1,4 +1,12 @@
+import { useContext } from 'react'
+import { UserContext } from '../App'
+
+import { useNavigate } from 'react-router-dom'
+
 export default function Login() {
+	const { userState, setUserState } = useContext(UserContext)
+	const navigate = useNavigate()
+
 	const handleFormSubmit = e => {
 		e.preventDefault()
 
@@ -13,7 +21,10 @@ export default function Login() {
 			body: JSON.stringify(formData),
 		})
 			.then(res => res.json())
-			.then(data => console.log(data))
+			.then(data => {
+				setUserState(data)
+				navigate('/')
+			})
 	}
 
 	return (
